@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Showcase</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6e0d8;
+            color: #333;
+        }
+        header {
+            background-color: #c6b69e;
+            color: white;
+            padding: 20px;
+            font-size: 28px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .project {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            background: #a48f6f;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .project:hover {
+            transform: scale(1.02);
+        }
+        .project h2 {
+            color: #e6e0d8;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #c6b69e;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+     <header>Coursework Coding Projects Cass D.V.</header>
+    <div class="container">
+        <h2>PHY-131 Projects</p>
+        <div class="project">
+            <h2>Project 1 & 2: <a href="https://trinket.io/python/086cb3b82c71" target="_blank">Turtle</a></h2>
+            <p>A turtle makes a silly drawing, not patriculary useful code.</p>
+        </div>
+         <div class="project">
+            <h2>Project 3: <a href="https://trinket.io/python/1753ee54b6ca" target="_blank">handshake calculator</a></h2>
+            <p>Want to know how many handshakes a group of people could have? This can help you with your weirdly specific question.</p>
+        </div>
+         <div class="project">
+            <h2>Project 4: <a href="https://trinket.io/python/aeaffbf671ed" target="_blank">Circle maker</a></h2>
+            <p>Makes a circle of your chosen radius, not patriculary useful code.</p>
+        </div>
+         <div class="project">
+            <h2>Project 5: <a href="https://trinket.io/python/216530989b49" target="_blank">Password generator</a></h2>
+            <p>I have to advise you not to use this, for your own cyber security.</p>
+        </div>
+         <div class="project">
+            <h2>Project 6: <a href="https://trinket.io/python/b40f1ed8ad77" target="_blank">Math code?</a></h2>
+            <p>calculates a bunch of stuff based off of data given for the class</p>
+        </div>
+    </div>
+    <div class="footer">Cass D.V.</div>
+</body>
+</html>
