@@ -4,14 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- SEO -->  
-<title>Sphere - One Page Portfolio Template</title>
+<!-- SEO -->
+<title>Portfolio — Your Name</title>
 <meta name="description" content="A short, clear description of your portfolio or service (max ~155 characters)." />
 <link rel="canonical" href="https://yourdomain.com/" />
 <meta name="robots" content="index,follow" />
-
-<!-- Favicon -->   
-<link rel="icon" href="./assets/img/global/favicon.ico" sizes="any" />
 
 <!-- Socials -->
 <meta property="og:title" content="Portfolio — Your Name" />
@@ -21,114 +18,638 @@
 <meta property="og:image" content="./assets/img/og-image.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<!-- Styles + JS -->    
-<link rel="preload" href="./assets/css/styles.css?v=0.8" as="style" />
-<link rel="stylesheet" href="./assets/css/colors.css?v=0.8" /> 
-<link rel="stylesheet" href="./assets/css/styles.css?v=0.8" />  
-<script defer src="./assets/js/siema.min.js?v=0.8"></script>
-<script defer src="./assets/js/main.js?v=0.8"></script>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
 
+<style>
+  /* ─── TOKENS ─────────────────────────────────────────── */
+  :root {
+    --bg:           #0d0d0d;
+    --bg-alt:       #141414;
+    --surface:      #1a1a1a;
+    --border:       #2a2a2a;
+    --text:         #e8e4dc;
+    --text-muted:   #6b6760;
+    --text-dim:     #9c9890;
+    --accent:       #c8b89a;
+    --accent-warm:  #e8c97e;
+    --link:         #c8b89a;
+    --link-hover:   #e8e4dc;
+
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body:    'DM Sans', system-ui, sans-serif;
+
+    --max-w:        680px;
+    --pad-x:        clamp(1.25rem, 5vw, 2.5rem);
+    --radius:       2px;
+
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ─── RESET ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { display: block; width: 100%; height: auto; }
+  a { color: var(--link); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--link-hover); }
+
+  /* ─── FADE-IN ─────────────────────────────────────────── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────── */
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem var(--pad-x);
+    background: rgba(13, 13, 13, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .top__left {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .top__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    filter: grayscale(20%);
+  }
+
+  .top__brand {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+
+  .top__right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .top__link {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .top__link:hover { color: var(--text); }
+
+  .top__cta {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius);
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .top__cta:hover {
+    background: var(--accent-warm);
+    color: var(--bg);
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  .hero {
+    padding: clamp(4rem, 10vw, 8rem) var(--pad-x) clamp(3rem, 7vw, 6rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero .boxed { max-width: var(--max-w); }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .overview {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .overview em {
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  /* ─── BOXED CONTENT ──────────────────────────────────── */
+  .boxed {
+    max-width: var(--max-w);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+  }
+
+  /* ─── PORTFOLIO SECTION ──────────────────────────────── */
+  .portfolio {
+    padding: clamp(2.5rem, 6vw, 5rem) 0;
+  }
+
+  .project {
+    padding: clamp(2rem, 5vw, 3.5rem) var(--pad-x);
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  .project + .project {
+    border-top: 1px solid var(--border);
+  }
+
+  /* ─── SLIDER ─────────────────────────────────────────── */
+  .slider-group {
+    position: relative;
+    margin-bottom: 1.75rem;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .siema-wrapper {
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .siema img {
+    border-radius: var(--radius);
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .slider-controls {
+    position: absolute;
+    bottom: 0.875rem;
+    right: 0.875rem;
+    display: flex;
+    gap: 0.375rem;
+    z-index: 10;
+  }
+
+  .slider-controls button {
+    appearance: none;
+    border: 1px solid rgba(232, 228, 220, 0.25);
+    background: rgba(13, 13, 13, 0.7);
+    backdrop-filter: blur(6px);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .slider-controls button:hover {
+    background: rgba(200, 184, 154, 0.15);
+    border-color: var(--accent);
+  }
+
+  /* Slide counter */
+  .slide-counter {
+    position: absolute;
+    bottom: 0.875rem;
+    left: 0.875rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba(232, 228, 220, 0.5);
+    background: rgba(13, 13, 13, 0.6);
+    backdrop-filter: blur(6px);
+    padding: 0.375rem 0.6rem;
+    border-radius: var(--radius);
+    z-index: 10;
+  }
+
+  /* ─── PROJECT TEXT ───────────────────────────────────── */
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .project-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 0.9rem;
+    letter-spacing: -0.01em;
+  }
+
+  h2.slider-heading { margin-top: 0; }
+
+  .project p {
+    color: var(--text-dim);
+    margin-bottom: 0.9rem;
+    max-width: 58ch;
+  }
+
+  .project p a { border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+  .project p a:hover { border-color: var(--accent); }
+
+  blockquote {
+    margin: 1.25rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 2px solid var(--accent);
+    background: var(--surface);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  blockquote p {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--text-dim) !important;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    margin-bottom: 0 !important;
+  }
+
+  .cta-project {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border) !important;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cta-project:hover {
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+  }
+
+  /* ─── SINGLE IMAGE PROJECT ───────────────────────────── */
+  .project-image {
+    margin-bottom: 1.75rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .project-image img {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  .project-image:hover img {
+    transform: scale(1.02);
+  }
+
+  /* ─── BIO SECTION ────────────────────────────────────── */
+  .bio-section {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: clamp(3rem, 7vw, 5.5rem) var(--pad-x);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (max-width: 520px) {
+    .bio-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .bio-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    filter: grayscale(15%);
+  }
+
+  .bio-text p {
+    color: var(--text-dim);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .bio-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .bio-links a {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .bio-links a:hover { color: var(--accent); }
+
+  /* ─── BG-ALT ─────────────────────────────────────────── */
+  .bg-alt {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  .site-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.5rem var(--pad-x);
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  .site-footer a { color: var(--text-muted); }
+  .site-footer a:hover { color: var(--text-dim); }
+
+  /* ─── SCROLLBAR ──────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+  /* ─── SELECTION ──────────────────────────────────────── */
+  ::selection { background: var(--accent); color: var(--bg); }
+</style>
 </head>
-<body class="scheme-midnight">
+<body>
 
+<!-- ─── HEADER ────────────────────────────────────────── -->
 <header class="top">
   <div class="top__left">
-    <img class="top__avatar" src="./assets/img/global/avatar.jpg" alt="Name" />
-    <span class="top__brand">Sphere</span>
+    <img class="top__avatar" src="./assets/img/global/avatar.jpg" alt="Your Name" />
+    <span class="top__brand">Your Name</span>
   </div>
   <nav class="top__right">
-  	<div class="links">
-	    <a href="#about" class="top__link">Info</a>
-    </div>
-    <a href="https://onepagelove.com/sphere" class="top__cta">Download <span class="arrow">→</span></a>
+    <a href="#about" class="top__link">Info</a>
+    <a href="mailto:hello@yourdomain.com" class="top__cta">Get in Touch →</a>
   </nav>
 </header>
+
+<!-- ─── HERO ──────────────────────────────────────────── -->
 <section class="hero">
-  <div class="boxed">
-    <span class="eyebrow">Courtesy of One Page Love</span>
-    <h1 class="overview">A minimal portfolio template to showcase your work in one page.</h1>
+  <div class="boxed fade-in">
+    <span class="eyebrow">Designer & Developer</span>
+    <h1 class="overview">A minimal portfolio to showcase your work — <em>one page, nothing else.</em></h1>
   </div>
 </section>
 
-<!-- Portfolio start -->
-<section> 
-  <div class="boxed">
+<!-- ─── PORTFOLIO ─────────────────────────────────────── -->
+<section class="portfolio">
 
-    <!-- Project start -->
-    <div class="slider-group">
-      <div class="siema-wrapper"> 
-        <div class="siema" data-slider="sphere-1">
-          <div><img src="./assets/img/portfolio/sphere-01.jpg" alt="Slide alt text" /></div>
-          <div><img src="./assets/img/portfolio/sphere-01b.jpg" alt="Slide alt text" /></div>
-          <div><img src="./assets/img/portfolio/sphere-01c.jpg" alt="Slide alt text" /></div>        
-        </div>   
+  <!-- Project 1 — slider -->
+  <div class="project fade-in">
+    <div class="slider-group" id="slider-group-1">
+      <div class="siema-wrapper">
+        <div class="siema" data-slider="project-1">
+          <div><img src="./assets/img/portfolio/sphere-01.jpg" alt="Project one, slide 1" /></div>
+          <div><img src="./assets/img/portfolio/sphere-01b.jpg" alt="Project one, slide 2" /></div>
+          <div><img src="./assets/img/portfolio/sphere-01c.jpg" alt="Project one, slide 3" /></div>
+        </div>
       </div>
+      <span class="slide-counter" id="counter-project-1">1 / 3</span>
       <span class="slider-controls">
         <button class="prev" aria-label="Previous slide">Prev</button>
-        <button class="next" aria-label="Next slide">Next</button> 
-      </span> 
+        <button class="next" aria-label="Next slide">Next</button>
+      </span>
+    </div>
+    <div class="project-meta">
+      <span class="project-tag">3D / Motion</span>
     </div>
     <h2 class="slider-heading">Project one with slider</h2>
-    <p>Explores the boundaries <a href="https://onepagelove.com/sphere">between light</a>, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p>
-   <blockquote><p>This could be a behind-the-scenes aside about the design process or event a customer testimonial.</p></blockquote>      
-    <p><a href="https://onepagelove.com/sphere" class="cta-project" title="Visit custom link">Link →</a></p>
-    <hr />
+    <p>Explores the boundaries between light, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p>
+    <blockquote><p>This could be a behind-the-scenes note about your process, or a client testimonial that adds context.</p></blockquote>
+    <p><a href="#" class="cta-project" title="Visit project">View Project →</a></p>
+  </div>
 
-    <!-- Project start -->
-    <div class="slider-group">
-      <div class="siema-wrapper"> 
-        <div class="siema" data-slider="sphere-2">
-          <div><img src="./assets/img/portfolio/sphere-03.jpg" alt="Slide alt text" /></div>
-          <div><img src="./assets/img/portfolio/sphere-03b.jpg" alt="Slide alt text" /></div>
-          <div><img src="./assets/img/portfolio/sphere-03c.jpg" alt="Slide alt text" /></div>         
-        </div>  
-      </div> 
+  <!-- Project 2 — slider -->
+  <div class="project fade-in">
+    <div class="slider-group" id="slider-group-2">
+      <div class="siema-wrapper">
+        <div class="siema" data-slider="project-2">
+          <div><img src="./assets/img/portfolio/sphere-03.jpg" alt="Project two, slide 1" /></div>
+          <div><img src="./assets/img/portfolio/sphere-03b.jpg" alt="Project two, slide 2" /></div>
+          <div><img src="./assets/img/portfolio/sphere-03c.jpg" alt="Project two, slide 3" /></div>
+        </div>
+      </div>
+      <span class="slide-counter" id="counter-project-2">1 / 3</span>
       <span class="slider-controls">
         <button class="prev" aria-label="Previous slide">Prev</button>
-        <button class="next" aria-label="Next slide">Next</button> 
-      </span> 
+        <button class="next" aria-label="Next slide">Next</button>
+      </span>
     </div>
-    <h2 class="slider-heading">Project two with slider</h2>   
-    <p>Explores the boundaries <a href="https://onepagelove.com/sphere">between light</a>, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p>
-    <p><a href="https://onepagelove.com/sphere" class="cta-project" title="Visit custom link">Link →</a></p>
-    <hr />
+    <div class="project-meta">
+      <span class="project-tag">Branding</span>
+    </div>
+    <h2 class="slider-heading">Project two with slider</h2>
+    <p>Explores the boundaries between light, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p>
+    <p><a href="#" class="cta-project" title="Visit project">View Project →</a></p>
+  </div>
 
-    <!-- Project start -->
-    <img src="./assets/img/portfolio/sphere-02.jpg" alt="Image alt text" />
-    <h2>Project three with one image</h2>   
-    <p>Explores the boundaries <a href="https://onepagelove.com/sphere">between light</a>, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p>
-    <p><a href="https://onepagelove.com/sphere" class="cta-project" title="Visit custom link">Link →</a></p>
-    <hr />
+  <!-- Project 3 — single image -->
+  <div class="project fade-in">
+    <div class="project-image">
+      <img src="./assets/img/portfolio/sphere-02.jpg" alt="Project three" />
+    </div>
+    <div class="project-meta">
+      <span class="project-tag">Photography</span>
+    </div>
+    <h2>Project three with one image</h2>
+    <p>Explores the boundaries between light, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p>
+    <p><a href="#" class="cta-project" title="Visit project">View Project →</a></p>
+  </div>
 
-    <!-- Project start -->
-    <img src="./assets/img/portfolio/sphere-04.jpg" alt="Image alt text" />
+  <!-- Project 4 — single image -->
+  <div class="project fade-in">
+    <div class="project-image">
+      <img src="./assets/img/portfolio/sphere-04.jpg" alt="Project four" />
+    </div>
+    <div class="project-meta">
+      <span class="project-tag">UI Design</span>
+    </div>
     <h2>Project four with one image</h2>
-    <p>Explores the boundaries <a href="https://onepagelove.com/sphere">between light</a>, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p> 
-    <p><a href="https://onepagelove.com/sphere" class="cta-project" title="Visit custom link">Link →</a></p>
-    <hr />   
+    <p>Explores the boundaries between light, texture, and motion through a single, meticulously crafted 3D sphere. Designed in Cinema 4D and rendered with Octane, the sphere serves as both a study in photorealism and a playground for expression.</p>
+    <p><a href="#" class="cta-project" title="Visit project">View Project →</a></p>
+  </div>
 
+</section>
+
+<!-- ─── BIO ───────────────────────────────────────────── -->
+<section class="bg-alt" id="about">
+  <div class="bio-section fade-in">
+    <div class="bio-image">
+      <img src="./assets/img/global/author.jpg" alt="Your Name" />
+    </div>
+    <div class="bio-text">
+      <p>
+        Hi, I'm <strong style="color:var(--text); font-weight:500;">Your Name</strong> — a designer and developer based in Your City. I focus on thoughtful, minimal work that communicates clearly and looks good doing it.
+      </p>
+      <p>
+        Available for select freelance projects and collaborations. Say hello.
+      </p>
+      <div class="bio-links">
+        <a href="mailto:hello@yourdomain.com">Email</a>
+        <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://linkedin.com/in/yourhandle" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/yourhandle" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
   </div>
 </section>
-<!-- Portfolio end -->
 
-<section class="bg-alt"> 
-  <div class="bio-section">
-      <div class="bio-image" id="about">
-        <img src="./assets/img/global/author.jpg" alt="Author" />
-      </div>
-      <div class="bio-text">
-        <p>
-          'Sphere' is licensed under CC BY 3.0 — free for personal and commercial use, as long as the footer link to One Page Love remains. Remove the credit with a Sphere Pro upgrade.
-        </p>
-        <div class="bio-links">
-      </div>
-    </div>
-</section>
+<!-- ─── FOOTER ────────────────────────────────────────── -->
 <footer class="site-footer">
-  <p class="footer-left">© 2025 Your Brand or Name</p>
-  <p class="footer-right">
-    <a href="https://onepagelove.com/sphere">Sphere Template</a> by One Page Love
-  </p>
+  <p>© 2025 Your Name</p>
+  <p><a href="https://onepagelove.com/sphere" target="_blank" rel="noopener">Sphere Template</a> by One Page Love</p>
 </footer>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────── -->
+<script>
+/* ── Minimal slider (no external lib needed) ── */
+(function () {
+  'use strict';
+
+  function initSliders() {
+    const groups = document.querySelectorAll('.slider-group');
+
+    groups.forEach(function (group) {
+      const wrapper  = group.querySelector('.siema-wrapper');
+      const track    = group.querySelector('.siema');
+      if (!wrapper || !track) return;
+
+      const slides   = Array.from(track.children);
+      const total    = slides.length;
+      if (total < 2) return;
+
+      let current  = 0;
+      let startX   = 0;
+      let isDrag   = false;
+
+      // Build flex track
+      track.style.cssText = 'display:flex; transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);';
+      slides.forEach(function (s) {
+        s.style.cssText = 'min-width:100%; flex-shrink:0;';
+      });
+
+      // Counter el
+      const counterId = group.querySelector('.slide-counter');
+
+      function goTo(n) {
+        current = ((n % total) + total) % total;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        if (counterId) counterId.textContent = (current + 1) + ' / ' + total;
+      }
+
+      // Buttons
+      const prev = group.querySelector('.prev');
+      const next = group.querySelector('.next');
+      if (prev) prev.addEventListener('click', function () { goTo(current - 1); });
+      if (next) next.addEventListener('click', function () { goTo(current + 1); });
+
+      // Touch / swipe
+      wrapper.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+
+      wrapper.addEventListener('touchend', function (e) {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+      });
+    });
+  }
+
+  /* ── Intersection observer fade-ins ── */
+  function initFadeIns() {
+    var els = document.querySelectorAll('.fade-in');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    els.forEach(function (el) { observer.observe(el); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initSliders();
+    initFadeIns();
+  });
+}());
+</script>
+
 </body>
 </html>
