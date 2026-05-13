@@ -222,6 +222,28 @@
   height: auto;
   max-height: 600px;
 }
+/* force each slide to take full width */
+.siema > * {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+/* slide container */
+.slide {
+  width: 100%;
+  height: 600px; /* adjust if needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* image behavior */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
   .slider-controls {
     position: absolute;
